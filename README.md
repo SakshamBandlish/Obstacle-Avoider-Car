@@ -5,9 +5,7 @@ An autonomous, self-directing 2WD robot built using an Arduino UNO, an L293D/L29
 ---
 
 ## 📌 Project Overview
-* **Difficulty:** ⭐⭐☆☆☆
-* **Duration:** 7 Days (Structured learning path)
-* **Core Application:** Autonomous navigation, embedded logic flow, sensor-actuator integration.
+Autonomous navigation, embedded logic flow, sensor-actuator integration.
 
 ### ✨ Key Features
 * 🚗 **Autonomous Navigation:** Drives forward dynamically without human intervention.

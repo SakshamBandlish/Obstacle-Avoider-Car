@@ -1,9 +1,4 @@
-// ════════════════════════════════════════════════════════════════════════
-//   AUTONOMOUS OBSTACLE AVOIDING ROBOT FIRMWARE
-//   Compatible with: Real-World Hardware (4-Pin) & Tinkercad (3-Pin)
-// ════════════════════════════════════════════════════════════════════════
 
-// ── L293D/L298N Control Pin Config ───────────────────────────────────────
 #define EN1  9   // Left Motor Speed Gate (PWM Input)
 #define IN1  5   // Left Motor Direction Vector A
 #define IN2  6   // Left Motor Direction Vector B
@@ -28,7 +23,7 @@ void setup() {
   pinMode(BUZZER, OUTPUT);
   
   Serial.begin(9600);
-  delay(2000); // Guard window to place robot on structural test floor
+  delay(2000); 
 }
 
 void loop() {
@@ -44,7 +39,7 @@ void loop() {
     reverseRobot();
     turnRight();
     
-    // Auxiliary spatial query scan to ensure the path correction worked
+
     if (getDistance() <= SAFE_DISTANCE) {
       turnLeft();
     }
@@ -53,25 +48,23 @@ void loop() {
   }
 }
 
-// ── Telemetry Distance Profiler Function ─────────────────────────────────
+
 long getDistance() {
-  // Transmit Phase: Configure pin as output to discharge high sonic burst
   pinMode(SIG_PIN, OUTPUT);
   digitalWrite(SIG_PIN, LOW);
   delayMicroseconds(2);
   digitalWrite(SIG_PIN, HIGH);
-  delayMicroseconds(10); // Standard trigger configuration window
+  delayMicroseconds(10);
   digitalWrite(SIG_PIN, LOW);
   
-  // Receive Phase: Instantly cycle pin back to high-impedance state to listen
+
   pinMode(SIG_PIN, INPUT);
-  long duration = pulseIn(SIG_PIN, HIGH, 30000); // 30ms internal timeout check
+  long duration = pulseIn(SIG_PIN, HIGH, 30000); 
   
-  // Convert duration metrics using the constant velocity factor of sound
   return duration * 0.0343 / 2;
 }
 
-// ── Actuation Execution Subroutines ──────────────────────────────────────
+
 void moveForward() {
   analogWrite(EN1, MOTOR_SPEED);
   analogWrite(EN2, MOTOR_SPEED);
@@ -91,8 +84,8 @@ void reverseRobot() {
 void turnRight() {
   analogWrite(EN1, MOTOR_SPEED);
   analogWrite(EN2, MOTOR_SPEED);
-  digitalWrite(IN1, HIGH); digitalWrite(IN2, LOW);  // Left Drive Element forward
-  digitalWrite(IN3, LOW);  digitalWrite(IN4, HIGH); // Right Drive Element backward
+  digitalWrite(IN1, HIGH); digitalWrite(IN2, LOW);  
+  digitalWrite(IN3, LOW);  digitalWrite(IN4, HIGH);
   delay(TURN_TIME);
   stopMotors();
 }
@@ -100,8 +93,8 @@ void turnRight() {
 void turnLeft() {
   analogWrite(EN1, MOTOR_SPEED);
   analogWrite(EN2, MOTOR_SPEED);
-  digitalWrite(IN1, LOW);  digitalWrite(IN2, HIGH); // Left Drive Element backward
-  digitalWrite(IN3, HIGH); digitalWrite(IN4, LOW);  // Right Drive Element forward
+  digitalWrite(IN1, LOW);  digitalWrite(IN2, HIGH);
+  digitalWrite(IN3, HIGH); digitalWrite(IN4, LOW);  
   delay(TURN_TIME);
   stopMotors();
 }
